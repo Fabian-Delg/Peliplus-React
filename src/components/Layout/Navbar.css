@@ -1,0 +1,27 @@
+.navbar{
+    background-color: #020617;
+    border-top: 1px solid #e5e7eb3a;
+    border-bottom: 1px solid #e5e7eb3a;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.link{
+    color: white;
+    background-color: #0033c0;
+    padding: 5px 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(0, 34, 85);
+    transition: 0.2s;
+}
+
+.link:hover{
+    background-color: #2b7fff;
+    border: 1px solid #0066ff;
+}
+
+.link:active{
+    transform: translateY(5px);
+}

@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    padding: 0;
+    background: url(../../assets/fondo2.jpg);
+    background-size: cover;
+}
+
+.escenario {
+    background-image: url(../../assets/fondo.jpg);
+    background-size: cover;
+    width: 700px;
+    height: 400px;
+    margin: 20px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+
+.titulo-juego{
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.titulo-pagina{
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+}
+
+.posicion{
+    margin-top: 10px;
+}
+
+.boton{
+    padding: 10px;
+    margin: 0 10px;
+    transition: 0.2s;
+}
+
+.boton:hover{
+    transform: scale(1.2);
+}
+
+.boton:active{
+    transform: translateY(3px);
+}
