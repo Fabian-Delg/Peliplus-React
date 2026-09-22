@@ -86,13 +86,13 @@ export function CartProvider({ children }) {
         0
     );
 
-    const subtotal = carrito.reduce(
+    const totalPagar = carrito.reduce(
         (acc, item) => acc + item.precio * item.cantidad,
         0
     );
 
-    const iva = subtotal * IVA_PORCENTAJE;
-    const totalPagar = subtotal + iva;
+    const iva = totalPagar * IVA_PORCENTAJE;
+    const subtotal = totalPagar - iva;
 
     return (
         <CartContext.Provider

@@ -94,7 +94,7 @@ export default function Perfil() {
 
     return (
         <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950 dark:text-slate-200">
-            <section className="mx-auto max-w-lg rounded-2xl bg-white border border-slate-200 p-8 shadow-lg dark:bg-slate-800">
+            <section className="mx-auto max-w-lg rounded-2xl bg-white border border-slate-200 p-8 shadow-lg dark:bg-slate-800 dark:border-slate-600">
                 <div className="mb-6 flex flex-col items-center">
                     <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-slate-700 dark:text-cyan-400">
                         <UserRound size={42} />
