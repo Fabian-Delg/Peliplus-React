@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
 const RANGO_PRECIO = {
-    min: 7000,
-    max: 50000,
+    min: 15000,
+    max: 80000,
 };
 
 function precioAleatorio() {
