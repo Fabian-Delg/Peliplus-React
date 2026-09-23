@@ -1,65 +1,98 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import toast from "react-hot-toast";
-import { UserRound, LogOut } from "lucide-react";
+import { UserRound, LogOut, Camera } from "lucide-react";
 
 export default function Perfil() {
-    const { usuario, cerrarSesion } = useAuth();
+    const { usuario, cerrarSesion, actualizarFotoPerfil } = useAuth()
     const navigate = useNavigate();
 
-    function confirmarCerrarSesion() {
-            return new Promise((resolve) => {
-                toast(
-                    (t) => (
-                        <div className="w-full min-w-0 box-border rounded-xl bg-white p-4 shadow-lg dark:bg-slate-800">
-                            <p className="mb-2 wrap-break-words font-semibold text-slate-800 dark:text-slate-100">
-                                ¿Cerrar Sesión?
-                            </p>
-    
-                            <p className="mb-4 wrap-break-words text-sm text-slate-600 dark:text-slate-300">
-                                ¿Estás seguro que deseas cerrar sesión?
-                            </p>
-    
-                            <div className="flex flex-wrap justify-end gap-2">
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        toast.dismiss(t.id);
-                                        resolve(false);
-                                    }}
-                                    className="rounded-lg bg-slate-200 px-3 py-2 text-sm text-slate-800 hover:bg-slate-300"
-                                >
-                                    Cancelar
-                                </button>
-    
-                                <button
-                                    type="button"
-                                    onClick={() => {
-                                        toast.dismiss(t.id);
-                                        resolve(true);
-                                    }}
-                                    className="rounded-lg bg-cyan-600 px-3 py-2 text-sm font-semibold text-white hover:bg-cyan-700"
-                                >
-                                    Confirmar
-                                </button>
-                            </div>
-                        </div>
-                    ),
-                    {
-                        duration: Infinity,
-                        position: "top-center",
-                        style: {
-                            width: "360px",
-                            maxWidth: "calc(100vw - 32px)",
-                            boxSizing: "border-box",
-                            padding: 0,
-                            background: "transparent",
-                            boxShadow: "none",
-                        },
-                    }
-                );
-            });
+    const manejarFoto = (e) => {
+        const archivo = e.target.files?.[0];
+
+        if (!archivo) return;
+
+        if (!archivo.type.startsWith("image/")) {
+            toast.error("Por favor, seleccione una imagen");
+            return;
         }
+
+        // Evitar imágenes demasiado grandes
+        if (archivo.size > 2 * 1024 * 1024) {
+            toast.error("La imagen no debe superar los 2 MB");
+            return;
+        }
+
+        const lector = new FileReader();
+
+        lector.onloadend = () => {
+            actualizarFotoPerfil(lector.result);
+            toast.success("Foto de perfil actualizada");
+        };
+
+        lector.onerror = () => {
+            toast.error("No se pudo cargar la imagen");
+        };
+
+        lector.readAsDataURL(archivo);
+
+        // Permite seleccionar nuevamente el mismo archivo
+        e.target.value = "";
+    };
+
+    function confirmarCerrarSesion() {
+        return new Promise((resolve) => {
+            toast(
+                (t) => (
+                    <div className="w-full min-w-0 box-border rounded-xl bg-white p-4 shadow-lg dark:bg-slate-800">
+                        <p className="mb-2 wrap-break-words font-semibold text-slate-800 dark:text-slate-100">
+                            ¿Cerrar Sesión?
+                        </p>
+
+                        <p className="mb-4 wrap-break-words text-sm text-slate-600 dark:text-slate-300">
+                            ¿Estás seguro que deseas cerrar sesión?
+                        </p>
+
+                        <div className="flex flex-wrap justify-end gap-2">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    toast.dismiss(t.id);
+                                    resolve(false);
+                                }}
+                                className="rounded-lg bg-slate-200 px-3 py-2 text-sm text-slate-800 hover:bg-slate-300"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    toast.dismiss(t.id);
+                                    resolve(true);
+                                }}
+                                className="rounded-lg bg-cyan-600 px-3 py-2 text-sm font-semibold text-white hover:bg-cyan-700"
+                            >
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                ),
+                {
+                    duration: Infinity,
+                    position: "top-center",
+                    style: {
+                        width: "360px",
+                        maxWidth: "calc(100vw - 32px)",
+                        boxSizing: "border-box",
+                        padding: 0,
+                        background: "transparent",
+                        boxShadow: "none",
+                    },
+                }
+            );
+        });
+    }
 
     async function manejarCerrarSesion() {
         const confirmar = await confirmarCerrarSesion();
@@ -96,9 +129,36 @@ export default function Perfil() {
         <main className="min-h-screen bg-slate-50 px-4 py-10 dark:bg-slate-950 dark:text-slate-200">
             <section className="mx-auto max-w-lg rounded-2xl bg-white border border-slate-200 p-8 shadow-lg dark:bg-slate-800 dark:border-slate-600">
                 <div className="mb-6 flex flex-col items-center">
-                    <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-slate-700 dark:text-cyan-400">
-                        <UserRound size={42} />
-                    </div>
+                    {/* Foto de perfil */}
+                    <label
+                        htmlFor="fotoPerfil"
+                        className="group relative mb-4 h-24 w-24 cursor-pointer overflow-hidden rounded-full bg-cyan-100 dark:bg-slate-700"
+                    >
+                        {usuario.foto ? (
+                            <img
+                                src={usuario.foto}
+                                alt={`Foto de ${usuario.nombre}`}
+                                className="h-full w-full object-cover"
+                            />
+                        ) : (
+                            <div className="flex h-full w-full items-center justify-center text-cyan-700 dark:text-cyan-400">
+                                <UserRound size={42} />
+                            </div>
+                        )}
+
+                        {/* Capa al pasar el mouse */}
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white opacity-0 transition group-hover:opacity-100">
+                            <Camera size={28} />
+                        </div>
+                    </label>
+
+                    <input
+                        id="fotoPerfil"
+                        type="file"
+                        accept="image/*"
+                        onChange={manejarFoto}
+                        className="hidden"
+                    />
 
                     <h1 className="text-3xl font-bold">
                         Mi perfil

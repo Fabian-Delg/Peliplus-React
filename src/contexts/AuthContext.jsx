@@ -48,10 +48,26 @@ export function AuthProvider({ children }) {
 
     // Cerrar sesión
     const cerrarSesion = useCallback(() => {
+        localStorage.removeItem("usuario")
         setUsuario(null);
     }, []);
 
     const autenticado = Boolean(usuario);
+
+    const actualizarFotoPerfil = (foto) => {
+        setUsuario((usuarioActual) => {
+            if (!usuarioActual) return null;
+
+            const usuarioActualizado = {
+                ...usuarioActual,
+                foto,
+            };
+
+            localStorage.setItem("usuario", JSON.stringify(usuarioActualizado));
+
+            return usuarioActualizado;
+        });
+    };
 
     return (
         <AuthContext.Provider
@@ -60,6 +76,7 @@ export function AuthProvider({ children }) {
                 autenticado,
                 iniciarSesion,
                 cerrarSesion,
+                actualizarFotoPerfil,
             }}
         >
             {children}

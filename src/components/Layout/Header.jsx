@@ -67,9 +67,17 @@ function Header() {
                         to="/perfil"
                         title={`Perfil de ${usuario.nombre}`}
                         aria-label="Ver perfil"
-                        className="mx-2 flex items-center gap-2 rounded-full bg-blue-500 p-2 text-white transition hover:bg-cyan-700"
+                        className="mx-2 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-blue-500 text-white transition hover:bg-cyan-700"
                     >
-                        <UserRound size={20} />
+                        {usuario.foto ? (
+                            <img
+                                src={usuario.foto}
+                                alt={`Foto de ${usuario.nombre}`}
+                                className="h-full w-full object-cover"
+                            />
+                        ) : (
+                            <UserRound size={20} />
+                        )}
                     </Link>
                 ) : (
                     <Link
