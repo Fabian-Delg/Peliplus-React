@@ -37,7 +37,7 @@ function Header() {
                     <ShoppingCart size={20} />
 
                     {totalItems > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-cyan-500 text-slate-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                        <span className="absolute -top-1 -right-1 bg-blue-400 text-slate-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                             {totalItems}
                         </span>
                     )}
@@ -67,7 +67,7 @@ function Header() {
                         to="/perfil"
                         title={`Perfil de ${usuario.nombre}`}
                         aria-label="Ver perfil"
-                        className="mx-2 flex items-center gap-2 rounded-full bg-cyan-700 p-2 text-white transition hover:bg-cyan-700"
+                        className="mx-2 flex items-center gap-2 rounded-full bg-blue-500 p-2 text-white transition hover:bg-cyan-700"
                     >
                         <UserRound size={20} />
                     </Link>

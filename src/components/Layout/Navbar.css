@@ -10,16 +10,16 @@
 
 .link{
     color: white;
-    background-color: #0033c0;
+    background-color: #0063f8;
+    border: 1px solid #0044aa;
     padding: 5px 20px;
     border-radius: 10px;
-    border: 1px solid rgb(0, 34, 85);
     transition: 0.2s;
 }
 
 .link:hover{
-    background-color: #2b7fff;
-    border: 1px solid #0066ff;
+    background-color: #60a0ff;
+    border: 1px solid #277dff;
 }
 
 .link:active{

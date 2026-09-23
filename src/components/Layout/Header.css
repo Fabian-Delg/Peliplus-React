@@ -20,16 +20,16 @@
 .login{
     color: white;
     margin-right: 15px;
-    background-color: #00217c;
+    background-color: #0063f8;
     padding: 10px 30px;
     border-radius: 10px;
-    border: 1px solid #001a61;
+    border: 1px solid #0044aa;
     transition: 0.2s;
 }
 
 .login:hover{
-    background-color: #0034c4;
-    border: 1px solid #00227e;
+    background-color: #60a0ff;
+    border: 1px solid #277dff;
 }
 
 .login:active{

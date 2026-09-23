@@ -25,7 +25,7 @@ export default function MovieCard({ pelicula }) {
                 {/* Póster */}
                 <div className="relative">
                     <img
-                        src={pelicula.medium_cover_image}
+                        src={pelicula.large_cover_image}
                         alt={`Póster de ${pelicula.title}`}
                         className="w-full h-96 object-cover"
                         loading="lazy"
@@ -104,7 +104,7 @@ export default function MovieCard({ pelicula }) {
                         onClick={() => setMostrarDetalles(false)}
                     >
                         <div
-                            className="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-slate-800"
+                            className="relative max-h-[95vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-slate-800"
                             onClick={(event) => event.stopPropagation()}
                         >
                             {/* Botón cerrar */}
@@ -123,7 +123,7 @@ export default function MovieCard({ pelicula }) {
                                     <img
                                         src={pelicula.large_cover_image || pelicula.medium_cover_image}
                                         alt={`Póster de ${pelicula.title}`}
-                                        className="h-full max-h-[760px] w-full object-cover"
+                                        className="h-full max-h-[550px] w-full object-cover"
                                     />
                                 </div>
 
